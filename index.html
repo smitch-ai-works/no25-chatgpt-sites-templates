@@ -236,12 +236,21 @@ html,body{max-width:100%;overflow-x:hidden}
 .fk-checklist{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
 .fk-checklist span{font-size:12.5px;font-weight:700;padding:5px 12px;border-radius:999px;
  background:var(--sk-surface);color:var(--sk-ink);border:1px solid var(--sk-line)}
+/* 折りたたみ式プロンプトボックス（2026-08-19〜）。長いプロンプトが常時全文
+   表示されるとページが間延びして最後まで読まれなくなる、との指摘で開閉式に変更。
+   コピーボタンはsummary内＝常に見える位置に置き、閉じたままコピーできるようにする。 */
 .fk-prompt{background:var(--sk-dark1);color:#E7E9EC;border-radius:12px;margin-top:12px;overflow:hidden}
 .fk-prompt-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 13px;
- border-bottom:1px solid rgba(255,255,255,.13);font-size:11px;letter-spacing:.06em}
-.fk-prompt-h span{color:var(--sk-hl);font-weight:900}
+ border-bottom:1px solid rgba(255,255,255,.13);font-size:11px;letter-spacing:.06em;cursor:pointer;
+ list-style:none}
+.fk-prompt-h::-webkit-details-marker{display:none}
+.fk-prompt-h>span:first-child{color:var(--sk-hl);font-weight:900;overflow:hidden;text-overflow:ellipsis;
+ white-space:nowrap}
+.fk-prompt-h-right{display:flex;align-items:center;gap:9px;flex:none}
 .fk-prompt-copy{background:rgba(255,255,255,.14);border:0;color:#fff;border-radius:999px;
  padding:4px 12px;font-size:11px;font-weight:700;cursor:pointer}
+.fk-prompt-arrow{color:rgba(255,255,255,.55);font-size:11px;transition:transform .2s ease}
+.fk-prompt[open] .fk-prompt-arrow{transform:rotate(180deg)}
 .fk-prompt pre{margin:0;padding:14px;font-size:12px;line-height:1.95;white-space:pre-wrap;
  font-family:var(--sk-font);color:#DFE2E6}
 .fk-prompt pre i{font-style:normal;color:var(--sk-hl)}
@@ -328,7 +337,10 @@ html,body{max-width:100%;overflow-x:hidden}
 
 <header class="fk-hero">
  <div class="fk-hero-bg"><img src="assets/hero.jpg" alt="清潔感のあるワークスペースのデスクに置かれたノートPCの画面に、シンプルでモダンなWebサイトのデザイン画面が表示されている様子"></div>
+ 
  <h1>ChatGPTだけで、<br><em>自分のWebサイトが持てる時代。</em></h1>
+ 
+ 
 </header>
 
 <section class="sk-sec">
@@ -411,9 +423,9 @@ html,body{max-width:100%;overflow-x:hidden}
     <span class="fk-pcard-tag">テンプレ①</span>
     <div class="fk-pcard-title">副業コンサルの個別相談LP</div>
     <p class="fk-pcard-text">Instagram運用など、自分のスキルを教える系の副業をしている人向け。悩み→サービス内容→料金→CTAまで、1ページで完結する構成です。</p>
-    <div class="fk-prompt">
-     <div class="fk-prompt-h"><span>副業コンサルLP生成プロンプト</span><button class="fk-prompt-copy" type="button">コピー</button></div>
-     <pre>ChatGPT Sitesで、副業サービスを紹介する1ページ完結型のLPを作成してください。
+    <details class="fk-prompt">
+      <summary class="fk-prompt-h"><span>副業コンサルLP生成プロンプト</span><span class="fk-prompt-h-right"><button class="fk-prompt-copy" type="button">コピー</button><span class="fk-prompt-arrow">&#9662;</span></span></summary>
+      <pre>ChatGPT Sitesで、副業サービスを紹介する1ページ完結型のLPを作成してください。
 
 【サービス】
 Instagram運用の個別コンサル
@@ -444,15 +456,15 @@ Instagramを伸ばしたいが、何を改善すればいいか分からない30
 ・CTAボタンを目立たせる
 
 文章についても仮のコピーを作成し、そのまま公開できるレベルまで仕上げてください。</pre>
-    </div>
+     </details>
    </div>
    <div class="fk-pcard">
     <span class="fk-pcard-tag">テンプレ②</span>
     <div class="fk-pcard-title">副業タイプ診断サイト</div>
     <p class="fk-pcard-text">SNSからの流入をゲーム感覚で楽しませて、フォロワーとの接点を増やしたい人向け。5問診断→4タイプ判定→CTAという流れです。</p>
-    <div class="fk-prompt">
-     <div class="fk-prompt-h"><span>診断サイト生成プロンプト</span><button class="fk-prompt-copy" type="button">コピー</button></div>
-     <pre>ChatGPT Sitesで、ユーザーが質問に答えると診断結果が表示される「副業タイプ診断サイト」を作成してください。
+    <details class="fk-prompt">
+      <summary class="fk-prompt-h"><span>診断サイト生成プロンプト</span><span class="fk-prompt-h-right"><button class="fk-prompt-copy" type="button">コピー</button><span class="fk-prompt-arrow">&#9662;</span></span></summary>
+      <pre>ChatGPT Sitesで、ユーザーが質問に答えると診断結果が表示される「副業タイプ診断サイト」を作成してください。
 
 【目的】
 SNSからアクセスしたユーザーに診断を楽しんでもらい、自分に合った副業の方向性を知ってもらう
@@ -492,15 +504,15 @@ SNSからアクセスしたユーザーに診断を楽しんでもらい、自�
 ・進捗バーを表示
 ・スマートフォンで見やすいデザイン
 ・診断結果はSNSでシェアしたくなる見た目</pre>
-    </div>
+     </details>
    </div>
    <div class="fk-pcard">
     <span class="fk-pcard-tag">テンプレ③</span>
     <div class="fk-pcard-title">フリーランス向けポートフォリオサイト</div>
     <p class="fk-pcard-text">制作実績を見せて、仕事の問い合わせにつなげたい人向け。企業担当者が見ても違和感のない、モノトーン中心の構成です。</p>
-    <div class="fk-prompt">
-     <div class="fk-prompt-h"><span>ポートフォリオサイト生成プロンプト</span><button class="fk-prompt-copy" type="button">コピー</button></div>
-     <pre>ChatGPT Sitesで、フリーランス・副業向けのポートフォリオサイトを作成してください。
+    <details class="fk-prompt">
+      <summary class="fk-prompt-h"><span>ポートフォリオサイト生成プロンプト</span><span class="fk-prompt-h-right"><button class="fk-prompt-copy" type="button">コピー</button><span class="fk-prompt-arrow">&#9662;</span></span></summary>
+      <pre>ChatGPT Sitesで、フリーランス・副業向けのポートフォリオサイトを作成してください。
 
 【職種】
 AIを活用したSNS・Web制作
@@ -537,7 +549,7 @@ AIを活用したSNS・Web制作
 ・問い合わせボタンを常に見つけやすくする
 
 仮の文章とサンプル実績も入れて、完成イメージが分かる状態まで作成してください。</pre>
-    </div>
+     </details>
    </div>
    </div>
     </div>
@@ -642,7 +654,9 @@ AIを活用したSNS・Web制作
 
 <script>
 document.querySelectorAll('.fk-prompt-copy').forEach(function(btn){
-  btn.addEventListener('click', function(){
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
     var pre = btn.closest('.fk-prompt').querySelector('pre');
     navigator.clipboard.writeText(pre.textContent).then(function(){
       var t = btn.textContent; btn.textContent = '✓ コピー済み';
